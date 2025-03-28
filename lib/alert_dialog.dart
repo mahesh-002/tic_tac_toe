@@ -4,21 +4,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Future<void> showAlertDialog({
-  @required BuildContext context,
-  @required String title,
-  @required String content,
-  @required String defaultActionText,
-  final VoidCallback onOkPressed
+  required BuildContext context,
+  required String title,
+  required String content,
+  required String defaultActionText,
+  required VoidCallback onOkPressed, // `final` is unnecessary here
 }) async {
   if (Platform.isIOS) {
-    return await showCupertinoDialog(
+    return showCupertinoDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
         title: Text(title),
         content: Text(content),
         actions: <Widget>[
           CupertinoDialogAction(
-            onPressed: () => onOkPressed(),
+            onPressed: onOkPressed, // No need for `()=>`
             child: Text(defaultActionText),
           ),
         ],
@@ -26,14 +26,14 @@ Future<void> showAlertDialog({
     );
   }
 
-  return await showDialog(
+  return showDialog(
     context: context,
     builder: (context) => AlertDialog(
       title: Text(title),
       content: Text(content),
       actions: <Widget>[
-        FlatButton(
-          onPressed: () => onOkPressed(),
+        TextButton( // ✅ Replaced FlatButton with TextButton
+          onPressed: onOkPressed,
           child: Text(defaultActionText),
         ),
       ],

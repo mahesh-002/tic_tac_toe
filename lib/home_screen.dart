@@ -17,7 +17,7 @@ class _TestState extends State<Test> {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({required Key key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -150,7 +150,9 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Container(
                 decoration:
-                    BoxDecoration(border: Border.all(color: Colors.grey[700])),
+                BoxDecoration(
+                  border: Border.all(color: Colors.grey[700]!), // Force unwrap
+                ),
                 child: Center(
                   child: Text(
                     _xOrOList[index],
